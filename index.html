@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
+    <title>AI Doctor</title>
     <style>
         /* Variables for Light and Dark Mode */
         :root {
@@ -291,7 +291,7 @@
 <body>
     <div id="header">
         <button id="menu-button">☰</button>
-        <span id="chatbot-name">Virtual Doctor</span>
+        <span id="chatbot-name">AI Doctor</span>
     </div>
     
     <div id="menu">
@@ -497,8 +497,8 @@
             // If bot, add an icon
             if (sender === "bot") {
                 const botIcon = document.createElement("img");
-                botIcon.src = "https://i.imgur.com/XjBpxoP.jpeg"; // Make sure the path matches
-                botIcon.alt = "Virtual Doctor";
+                botIcon.src = "https://img.freepik.com/premium-vector/nurse-male-icon-vector-image-can-be-used-home-services_120816-221435.jpg?w=826"; // Make sure the path matches
+                botIcon.alt = "AI Doctor";
                 botIcon.classList.add("bot-icon");
                 containerDiv.appendChild(botIcon);
             }
