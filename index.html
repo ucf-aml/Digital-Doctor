@@ -330,10 +330,38 @@
     <script>
         const topicSuggestions = {
             topic1: [],
-            topic2: ["What Is a Heart Attack?", "What are the symptoms of a heart attack?", "What is the most common cause of a heart attack?", "What are the risk factors for heart attacks?","What are some ways to prevent heart attacks?"],
-            topic3: ["What is Hepatitis C?", "How is Hepatitis C Spread?", "What Are the Symptoms of Hepatitis C?","What Other Problems Can Hepatitis C Cause?","What Are the Treatments for Hepatitis C?"],
-            topic4: ["What kinds of cancer are more common in young adults?", "Are there ways to prevent breast cancer?", "How do I know if something on my skin might be melanoma?","How do doctors treat cancer?","What’s the difference between chemotherapy and radiotherapy?"],
-            topic5: ["What is Hypothyroidism?", "What causes hypothyroidism?", "What are the symptoms of hypothyroidism?", "What other problems can hypothyroidism cause?","What are the treatments for hypothyroidism?"],
+                    
+            topic2: [
+                { text: "What Is a Heart Attack?", intent: "a. What Is a heart attack?" },
+                { text: "What are the symptoms of a heart attack?", intent: "b. " },
+                { text: "What is the most common cause of a heart attack?", intent: "c. " },
+                { text: "What are the risk factors for heart attacks?", intent: "d. " },
+                { text: "What are some ways to prevent heart attacks?", intent: "e. " }
+            ],
+        
+            topic3: [
+                { text: "What is Hepatitis C?", intent: "f. " },
+                { text: "How is Hepatitis C Spread?", intent: "g. " },
+                { text: "What Are the Symptoms of Hepatitis C?", intent: "h. " },
+                { text: "What Other Problems Can Hepatitis C Cause?", intent: "i. " },
+                { text: "What Are the Treatments for Hepatitis C?", intent: "j. " }
+            ],
+        
+            topic4: [
+                { text: "What kinds of cancer are more common in young adults?", intent: "k. " },
+                { text: "Are there ways to prevent breast cancer?", intent: "l. " },
+                { text: "How do I know if something on my skin might be melanoma?", intent: "m. " },
+                { text: "How do doctors treat cancer?", intent: "n. " },
+                { text: "What’s the difference between chemotherapy and radiotherapy?", intent: "o. " }
+            ],
+        
+            topic5: [
+                { text: "What is Hypothyroidism?", intent: "p. " },
+                { text: "What causes hypothyroidism?", intent: "q. " },
+                { text: "What are the symptoms of hypothyroidism?", intent: "r. " },
+                { text: "What other problems can hypothyroidism cause?", intent: "s. " },
+                { text: "What are the treatments for hypothyroidism?", intent: "t. " }
+            ]
         };
 
         const availableSuggestions = {};
@@ -387,9 +415,9 @@
                             userInput.value = suggestionText;
                             //suggestions.splice(index, 1); // Remove selected suggestion
                             //displayAllSuggestion(topic); // Refresh suggestion list
-                            removeSuggestion(topic, suggestionText);
+                            removeSuggestion(topic, suggestion.text);
                         });
-                        suggestionsDiv.appendChild(suggestion);
+                        suggestionsDiv.appendChild(suggestionElement);
                     });
             //}
         }
@@ -451,7 +479,10 @@
         
                 // ✅ Remove suggestion based on recognized intent
                 if (detectedIntent) {
+                    console.log(`Detected Intent: ${detectedIntent}`);
                     removeSuggestionByIntent(selectedTopic, detectedIntent);
+                } else {
+                    console.log("No intent detected in response.");
                 }
                 
                 if (data.richText) {
@@ -493,6 +524,9 @@
                 if (index !== -1) {
                     suggestions.splice(index, 1); // ✅ Remove the matching suggestion
                     displayAllSuggestion(topic); // ✅ Refresh UI
+                    console.log(`Removed suggestion for intent: ${detectedIntent}`);
+                } else {
+                    console.log(`No suggestion found for intent: ${detectedIntent}`);
                 }
             }
         }
