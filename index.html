@@ -333,34 +333,34 @@
                     
             topic2: [
                 { text: "What Is a Heart Attack?", intent: "a. What Is a heart attack?" },
-                { text: "What are the symptoms of a heart attack?", intent: "b. " },
-                { text: "What is the most common cause of a heart attack?", intent: "c. " },
-                { text: "What are the risk factors for heart attacks?", intent: "d. " },
-                { text: "What are some ways to prevent heart attacks?", intent: "e. " }
+                { text: "What are the symptoms of a heart attack?", intent: "b. What are the symptoms of a heart attack?" },
+                { text: "What is the most common cause of a heart attack?", intent: "c. What is the most common cause of a heart attack?" },
+                { text: "What are the risk factors for heart attacks?", intent: "d. What are the risk factors for heart attacks?" },
+                { text: "What are some ways to prevent heart attacks?", intent: "e. What are some ways to prevent heart attacks?" }
             ],
         
             topic3: [
-                { text: "What is Hepatitis C?", intent: "f. " },
-                { text: "How is Hepatitis C Spread?", intent: "g. " },
-                { text: "What Are the Symptoms of Hepatitis C?", intent: "h. " },
-                { text: "What Other Problems Can Hepatitis C Cause?", intent: "i. " },
-                { text: "What Are the Treatments for Hepatitis C?", intent: "j. " }
+                { text: "What is Hepatitis C?", intent: "f. What is hepatitis C?" },
+                { text: "How is Hepatitis C Spread?", intent: "g. How is hepatitis C spread?" },
+                { text: "What Are the Symptoms of Hepatitis C?", intent: "h. What are the symptoms of hepatitis C?" },
+                { text: "What Other Problems Can Hepatitis C Cause?", intent: "i. What problems can hepatitis C cause?" },
+                { text: "What Are the Treatments for Hepatitis C?", intent: "j. What are the treatments for hepatitis C?" }
             ],
         
             topic4: [
-                { text: "What kinds of cancer are more common in young adults?", intent: "k. " },
-                { text: "Are there ways to prevent breast cancer?", intent: "l. " },
-                { text: "How do I know if something on my skin might be melanoma?", intent: "m. " },
-                { text: "How do doctors treat cancer?", intent: "n. " },
-                { text: "What’s the difference between chemotherapy and radiotherapy?", intent: "o. " }
+                { text: "What kinds of cancer are more common in young adults?", intent: "k. What types of cancer are common among young adults?" },
+                { text: "Are there ways to prevent breast cancer?", intent: "l. Are there ways to prevent breast cancer?" },
+                { text: "How do I know if something on my skin might be melanoma?", intent: "m. How do I know if something on my skin is a melanoma or not?" },
+                { text: "How do doctors treat cancer?", intent: "n. How do doctors treat cancer?" },
+                { text: "What’s the difference between chemotherapy and radiotherapy?", intent: "o. What are the differences between chemotherapy and radiotherapy?" }
             ],
         
             topic5: [
-                { text: "What is Hypothyroidism?", intent: "p. " },
-                { text: "What causes hypothyroidism?", intent: "q. " },
-                { text: "What are the symptoms of hypothyroidism?", intent: "r. " },
-                { text: "What other problems can hypothyroidism cause?", intent: "s. " },
-                { text: "What are the treatments for hypothyroidism?", intent: "t. " }
+                { text: "What is Hypothyroidism?", intent: "p. What is Hypothyroidism?" },
+                { text: "What causes hypothyroidism?", intent: "q. What causes hypothyroidism?" },
+                { text: "What are the symptoms of hypothyroidism?", intent: "r. What are the symptoms of hypothyroidism?" },
+                { text: "What other problems can hypothyroidism cause?", intent: "s. What problems can hypothyroidism cause?" },
+                { text: "What are the treatments for hypothyroidism?", intent: "t. What are the treatments for hypothyroidism?" }
             ]
         };
 
@@ -461,6 +461,9 @@
             const selectedTopic = topicsDropdown.value;
             const suggestions = currentSuggestions[selectedTopic];
 
+            // ✅ Append the topic name to the user's message
+            const modifiedMessage = `${message} ${topicText}`;
+
             try {
                 const response = await fetch(CLOUD_FUNCTION_URL, {
                     method: "POST",
@@ -469,7 +472,7 @@
                     },
                     body: JSON.stringify({
                         sessionId: "test-session", // Unique session per user
-                        message: message
+                        message: modifiedMessage
                     }),
                 });
 
