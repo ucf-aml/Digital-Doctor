@@ -407,11 +407,11 @@
                     // Display all remaining suggestions
                     suggestions.forEach((suggestionObj, index) => {
                         const suggestionElement = document.createElement("div");
-                        suggestion.className = "suggestion";
-                        suggestion.textContent = suggestionText;
+                        suggestionElement.className = "suggestion";
+                        suggestionElement.textContent = suggestionText;
                         
                         // Clicking the suggestion fills the input box and removes it from the list
-                        suggestion.addEventListener("click", () => {
+                        suggestionElement.addEventListener("click", () => {
                             userInput.value = suggestionObj.text;
                             //suggestions.splice(index, 1); // Remove selected suggestion
                             //displayAllSuggestion(topic); // Refresh suggestion list
