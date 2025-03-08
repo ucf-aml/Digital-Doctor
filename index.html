@@ -520,9 +520,9 @@
             let suggestions = currentSuggestions[topic];
         
             if (suggestions && suggestions.length > 0) {
-                // ✅ Check if any suggestion matches the intent
-                const index = suggestions.findIndex(suggestion =>
-                    suggestion.toLowerCase().includes(detectedIntent.toLowerCase())
+                // ✅ Correctly find the index based on the `intent` property
+                const index = suggestions.findIndex(suggestion => 
+                    suggestion.intent.toLowerCase() === detectedIntent.toLowerCase()
                 );
         
                 if (index !== -1) {
