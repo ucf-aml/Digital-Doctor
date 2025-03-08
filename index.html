@@ -491,11 +491,10 @@
             const suggestions = topicSuggestions[selectedTopic];
 
             // Remove only the exact sent message from the array
-            if (suggestions) {
-                const index = suggestions.indexOf(message);
-                if (index > -1) {
-                    suggestions.splice(index, 1);
-                    displayAllSuggestion(selectedTopic);
+            if (suggestions && suggestions.length > 0) {
+                const index = suggestions.findIndex(suggestion => suggestion.toLowerCase() === message.toLowerCase());
+                if (index !== -1) {
+                    suggestions.splice(index, 1); // Remove the exact typed suggestion
                 }
             }
 
