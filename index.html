@@ -402,7 +402,7 @@
 
             // Display the suggestion
             suggestionsDiv.innerHTML = ""; // Clear existing suggestion
-            if(suggestions.length > 0){
+            //if(suggestions.length > 0){
                     // Display all remaining suggestions
                     suggestions.forEach((suggestionText, index) => {
                         const suggestion = document.createElement("div");
@@ -416,7 +416,7 @@
                             displayAllSuggestions(topic); // Refresh suggestion list
                         });
                 suggestionsDiv.appendChild(suggestion);
-            }
+            //}
         }
 
 
