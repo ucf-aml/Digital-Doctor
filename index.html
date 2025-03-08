@@ -458,6 +458,8 @@
 
             addMessage(message, "user"); // Show user message
             document.getElementById("user-input").value = ""; // Clear input field
+            const selectedTopic = topicsDropdown.value;
+            const suggestions = currentSuggestions[selectedTopic];
 
             try {
                 const response = await fetch(CLOUD_FUNCTION_URL, {
@@ -499,9 +501,6 @@
                 console.error("Error:", error);
                 addMessage("⚠️ Error: Unable to connect to the server.", "bot");
             }
-
-            const selectedTopic = topicsDropdown.value;
-            const suggestions = currentSuggestions[selectedTopic];
 
             // Remove only the exact sent message from the array
             if (suggestions && suggestions.length > 0) {
