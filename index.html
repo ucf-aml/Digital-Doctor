@@ -345,13 +345,14 @@
             document.getElementById("messages").innerHTML = ""; // Clear chat
             addMessage("Hi there! I’m AI Doctor, here to help you make sense of all things health—minus the confusing jargon. Got a question? Need a quick health tip? Or just  curious about something? Fire away!", "bot"); // Initial message
         }
-        
+
+        let currentSuggestions = {};
         // Initialize available suggestions
         function resetSuggestions() {
             for (let topic in topicSuggestions) {
                 // availableSuggestions[topic] = [...topicSuggestions[topic]];
                 // availableSuggestions[topic] = 0; //start at the first suggestion
-                topicSuggestions[topic] = [...topicSuggestions[topic]];
+                currentSuggestions[topic] = [...topicSuggestions[topic]];
             }
         }
         resetSuggestions();
@@ -387,7 +388,7 @@
 
         // display next suggestion
         function displayAllSuggestion(topic) {
-            const suggestions = topicSuggestions[topic];
+            const suggestions = currentSuggestions[topic];
             if (!suggestions || suggestions.length === 0) {
                 suggestionsDiv.innerHTML = ""; // Clear if no suggestions
                 return;
@@ -488,7 +489,7 @@
             }
 
             const selectedTopic = topicsDropdown.value;
-            const suggestions = topicSuggestions[selectedTopic];
+            const suggestions = currentSuggestions[topic];
 
             // Remove only the exact sent message from the array
             if (suggestions && suggestions.length > 0) {
