@@ -413,8 +413,9 @@
                         // Clicking the suggestion fills the input box and removes it from the list
                         suggestion.addEventListener("click", () => {
                             userInput.value = suggestionText;
-                            suggestions.splice(index, 1); // Remove selected suggestion
-                            displayAllSuggestion(topic); // Refresh suggestion list
+                            //suggestions.splice(index, 1); // Remove selected suggestion
+                            //displayAllSuggestion(topic); // Refresh suggestion list
+                            removeSuggestion(topic, suggestionText);
                         });
                         suggestionsDiv.appendChild(suggestion);
                     });
@@ -489,13 +490,14 @@
             }
 
             const selectedTopic = topicsDropdown.value;
-            const suggestions = currentSuggestions[topic];
+            const suggestions = currentSuggestions[selectedTopic];
 
             // Remove only the exact sent message from the array
             if (suggestions && suggestions.length > 0) {
                 const index = suggestions.findIndex(suggestion => suggestion.toLowerCase() === message.toLowerCase());
                 if (index !== -1) {
                     suggestions.splice(index, 1); // Remove the exact typed suggestion
+                    displayAllSuggestion(selectedTopic);
                 }
             }
 
@@ -544,6 +546,18 @@
             }
 
             messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        function removeSuggestion(topic, message) {
+            let suggestions = currentSuggestions[topic];
+        
+            if (suggestions) {
+                const index = suggestions.findIndex(suggestion => suggestion.toLowerCase() === message.toLowerCase());
+                if (index !== -1) {
+                    suggestions.splice(index, 1); // ✅ Removes typed or clicked suggestion
+                    displayAllSuggestion(topic); // ✅ Refresh UI
+                }
+            }
         }
 
         // Function to auto-scroll the chat to the latest message
