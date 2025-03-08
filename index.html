@@ -480,7 +480,7 @@
                 console.log("Raw Dialogflow Response:", data); // 👈 Logs raw output to browser console
 
                 // ✅ Extract the recognized intent from Dialogflow
-                const detectedIntent = data.intent; // Ensure Dialogflow response includes this
+                const detectedIntent = data.intent || (data.queryResult && data.queryResult.intent && data.queryResult.intent.displayName); // Ensure Dialogflow response includes this
         
                 // ✅ Remove suggestion based on recognized intent
                 if (detectedIntent) {
