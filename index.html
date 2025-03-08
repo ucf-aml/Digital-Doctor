@@ -386,7 +386,7 @@
         }*/
 
         // display next suggestion
-        function displayNextSuggestion(topic) {
+        function displayAllSuggestion(topic) {
             const suggestions = topicSuggestions[topic];
             if (!suggestions || suggestions.length === 0) {
                 suggestionsDiv.innerHTML = ""; // Clear if no suggestions
@@ -413,7 +413,7 @@
                         suggestion.addEventListener("click", () => {
                             userInput.value = suggestionText;
                             suggestions.splice(index, 1); // Remove selected suggestion
-                            displayAllSuggestions(topic); // Refresh suggestion list
+                            Suggestions(topic); // Refresh suggestion list
                         });
                 suggestionsDiv.appendChild(suggestion);
             //}
