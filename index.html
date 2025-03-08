@@ -520,17 +520,19 @@
             let suggestions = currentSuggestions[topic];
         
             if (suggestions && suggestions.length > 0) {
-                // ✅ Correctly find the index based on the `intent` property
+                console.log(`Looking for intent: ${detectedIntent} in topic: ${topic}`);
+        
+                // ✅ Correct: Compare `suggestion.intent` instead of `suggestion`
                 const index = suggestions.findIndex(suggestion => 
-                    suggestion.intent.toLowerCase() === detectedIntent.toLowerCase()
+                    suggestion.intent && suggestion.intent.toLowerCase() === detectedIntent.toLowerCase()
                 );
         
                 if (index !== -1) {
+                    console.log(`Found matching intent at index ${index}, removing suggestion:`, suggestions[index]);
                     suggestions.splice(index, 1); // ✅ Remove the matching suggestion
                     displayAllSuggestion(topic); // ✅ Refresh UI
-                    console.log(`Removed suggestion for intent: ${detectedIntent}`);
                 } else {
-                    console.log(`No suggestion found for intent: ${detectedIntent}`);
+                    console.log(`No matching intent found for: ${detectedIntent}`);
                 }
             }
         }
