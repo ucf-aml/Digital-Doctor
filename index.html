@@ -481,9 +481,9 @@
 
                 console.log("Raw Dialogflow Response:", data); // 👈 Logs raw output to browser console
 
-                // ✅ Extract the recognized intent from Dialogflow
-                const detectedIntent = data.intent || (data.queryResult && data.queryResult.intent && data.queryResult.intent.displayName); // Ensure Dialogflow response includes this
-        
+                // ✅ Fix: Ensure intent is properly extracted
+                const detectedIntent = data.intent || (data.queryResult && data.queryResult.intent && data.queryResult.intent.displayName);
+
                 // ✅ Remove suggestion based on recognized intent
                 if (detectedIntent) {
                     console.log(`Detected Intent: ${detectedIntent}`);
@@ -504,7 +504,9 @@
 
             // Remove only the exact sent message from the array
             if (suggestions && suggestions.length > 0) {
-                const index = suggestions.findIndex(suggestion => suggestion.toLowerCase() === message.toLowerCase());
+                const index = suggestions.findIndex(suggestion => 
+                    suggestion.text.toLowerCase() === message.toLowerCase()
+                );
                 if (index !== -1) {
                     suggestions.splice(index, 1); // Remove the exact typed suggestion
                     displayAllSuggestion(selectedTopic);
