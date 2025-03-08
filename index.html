@@ -403,13 +403,18 @@
             // Display the suggestion
             suggestionsDiv.innerHTML = ""; // Clear existing suggestion
             if(suggestions.length > 0){
-                const suggestion = document.createElement("div");
-                suggestion.className = "suggestion";
-                suggestion.textContent = suggestionText;
-                suggestion.addEventListener("click", () => {
-                    userInput.value = suggestionText; // Fill input box
-                    displayNextSuggestion(topic); // Show the next one in sequence
-                });
+                    // Display all remaining suggestions
+                    suggestions.forEach((suggestionText, index) => {
+                        const suggestion = document.createElement("div");
+                        suggestion.className = "suggestion";
+                        suggestion.textContent = suggestionText;
+                        
+                        // Clicking the suggestion fills the input box and removes it from the list
+                        suggestion.addEventListener("click", () => {
+                            userInput.value = suggestionText;
+                            suggestions.splice(index, 1); // Remove selected suggestion
+                            displayAllSuggestions(topic); // Refresh suggestion list
+                        });
                 suggestionsDiv.appendChild(suggestion);
             }
         }
@@ -419,7 +424,7 @@
         topicsDropdown.addEventListener("change", () => {
             const selectedTopic = topicsDropdown.value;
             // displayRandomSuggestion(selectedTopic);
-            displayNextSuggestion(selectedTopic);
+            displayAllSuggestion(selectedTopic);
         });
 
         // Refresh Chat and Reset Suggestions
@@ -494,7 +499,7 @@
 
             userInput.value = ""; // Clear input field
             // displayRandomSuggestion(selectedTopic); // Display next random suggestion
-            displayNextSuggestion(selectedTopic); // Display next suggestion in sequence
+            displayAllSuggestion(selectedTopic); // Display next suggestion in sequence
         }
 
         function addMessage(text, sender) {
