@@ -460,6 +460,7 @@
             document.getElementById("user-input").value = ""; // Clear input field
             const selectedTopic = topicsDropdown.value;
             const suggestions = currentSuggestions[selectedTopic];
+            const topicText = topicsDropdown.options[topicsDropdown.selectedIndex].text; // Get topic name
 
             // ✅ Append the topic name to the user's message
             const modifiedMessage = `${message} ${topicText}`;
