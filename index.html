@@ -394,11 +394,11 @@
             }
 
             // Get the next suggestion in order
-            let index = availableSuggestions[topic] % suggestions.length;
-            const suggestionText = suggestions[index];
+            //let index = availableSuggestions[topic] % suggestions.length;
+            //const suggestionText = suggestions[index];
 
             // Increment index for next time
-            availableSuggestions[topic]++;
+            //availableSuggestions[topic]++;
 
             // Display the suggestion
             suggestionsDiv.innerHTML = ""; // Clear existing suggestion
@@ -413,7 +413,7 @@
                         suggestion.addEventListener("click", () => {
                             userInput.value = suggestionText;
                             suggestions.splice(index, 1); // Remove selected suggestion
-                            Suggestions(topic); // Refresh suggestion list
+                            displayAllSuggestions(topic); // Refresh suggestion list
                         });
                 suggestionsDiv.appendChild(suggestion);
             //}
@@ -494,6 +494,7 @@
                 const index = suggestions.indexOf(message);
                 if (index > -1) {
                     suggestions.splice(index, 1);
+                    displayAllSuggestion(selectedTopic);
                 }
             }
 
