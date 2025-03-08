@@ -391,6 +391,7 @@
             const suggestions = currentSuggestions[topic];
             if (!suggestions || suggestions.length === 0) {
                 suggestionsDiv.innerHTML = ""; // Clear if no suggestions
+                console.log("No suggestions found for this topic.");
                 return;
             }
 
@@ -400,18 +401,21 @@
 
             // Increment index for next time
             //availableSuggestions[topic]++;
-
+            
+            console.log(`Found ${suggestions.length} suggestions.`);
             // Display the suggestion
             suggestionsDiv.innerHTML = ""; // Clear existing suggestion
             //if(suggestions.length > 0){
                     // Display all remaining suggestions
                 suggestions.forEach((suggestionObj, index) => {
+                    console.log(`Adding suggestion: ${suggestionObj.text}`);
                     const suggestionElement = document.createElement("div");
                     suggestionElement.className = "suggestion";
                     suggestionElement.textContent = suggestionObj.text; // Use .text property
             
                     // Clicking the suggestion fills the input box and removes it from the list
                     suggestionElement.addEventListener("click", () => {
+                        console.log(`Clicked suggestion: ${suggestionObj.text}`);
                         userInput.value = suggestionObj.text;
                         removeSuggestion(topic, suggestionObj.text); // Call the remove function
                     });
@@ -419,6 +423,7 @@
                     suggestionsDiv.appendChild(suggestionElement); // Append to UI
                 });
             //}
+            console.log("Suggestions successfully added to UI.");
         }
 
 
@@ -426,6 +431,7 @@
         topicsDropdown.addEventListener("change", () => {
             const selectedTopic = topicsDropdown.value;
             // displayRandomSuggestion(selectedTopic);
+            console.log(`Topic changed to: ${selectedTopic}`);
             displayAllSuggestion(selectedTopic);
         });
 
