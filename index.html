@@ -357,34 +357,6 @@
         }
         resetSuggestions();
         initializeChat(); // ✅ Show initial chatbot message when page loads
-        // Display one random suggestion at a time
-        /*function displayRandomSuggestion(topic) {
-            const suggestions = availableSuggestions[topic];
-            if (!suggestions || suggestions.length === 0) {
-                suggestionsDiv.innerHTML = ""; // Clear if no suggestions are left
-                return;
-            }
-
-            let filteredSuggestions = suggestions.filter(q => q !== userInput.value); // Remove the one in the text box
-
-            // If all available suggestions match the input, return any remaining one
-            if (filteredSuggestions.length === 0) {
-                filteredSuggestions = suggestions;
-            }
-
-            const randomIndex = Math.floor(Math.random() * filteredSuggestions.length);
-            const suggestionText = filteredSuggestions[randomIndex];
-
-            suggestionsDiv.innerHTML = ""; // Clear existing suggestion
-            const suggestion = document.createElement("div");
-            suggestion.className = "suggestion";
-            suggestion.textContent = suggestionText;
-            suggestion.addEventListener("click", () => {
-                userInput.value = suggestionText; // Fill input box
-                displayRandomSuggestion(topic); // Generate a new suggestion
-            });
-            suggestionsDiv.appendChild(suggestion);
-        }*/
 
         // display next suggestion
         function displayAllSuggestion(topic) {
@@ -474,11 +446,14 @@
 
                 console.log("Raw Dialogflow Response:", data); // 👈 Logs raw output to browser console
 
-                //if (data.reply) {
-                    //addMessage(data.reply, "bot"); // Display bot response
-                //} else {
-                    //addMessage("⚠️ Error: No response from bot.", "bot");
-                //}
+                // ✅ Extract the recognized intent from Dialogflow
+                const detectedIntent = data.intent; // Ensure Dialogflow response includes this
+        
+                // ✅ Remove suggestion based on recognized intent
+                if (detectedIntent) {
+                    removeSuggestionByIntent(selectedTopic, detectedIntent);
+                }
+                
                 if (data.richText) {
                     addMessage(data.richText, "bot"); // ✅ Use rich text if available
                 } else {
@@ -504,6 +479,22 @@
             userInput.value = ""; // Clear input field
             // displayRandomSuggestion(selectedTopic); // Display next random suggestion
             displayAllSuggestion(selectedTopic); // Display next suggestion in sequence
+        }
+
+        function removeSuggestionByIntent(topic, detectedIntent) {
+            let suggestions = currentSuggestions[topic];
+        
+            if (suggestions && suggestions.length > 0) {
+                // ✅ Check if any suggestion matches the intent
+                const index = suggestions.findIndex(suggestion =>
+                    suggestion.toLowerCase().includes(detectedIntent.toLowerCase())
+                );
+        
+                if (index !== -1) {
+                    suggestions.splice(index, 1); // ✅ Remove the matching suggestion
+                    displayAllSuggestion(topic); // ✅ Refresh UI
+                }
+            }
         }
 
         function addMessage(text, sender) {
