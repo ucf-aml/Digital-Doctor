@@ -474,9 +474,18 @@
         // Handle topic selection
         topicsDropdown.addEventListener("change", () => {
             const selectedTopic = topicsDropdown.value;
-            // displayRandomSuggestion(selectedTopic);
-            console.log(`Topic changed to: ${selectedTopic}`);
-            displayAllSuggestion(selectedTopic);
+        
+            // ✅ Prevent pop-up when switching to "Select a Topic"
+            if (selectedTopic === "topic1") {
+                console.log("Topic changed to 'Select a Topic'. Pop-up disabled.");
+                return; // Exit early to avoid pop-ups
+    }
+
+    // Save the selected topic
+    lastSelectedTopic = selectedTopic;
+
+    console.log(`Topic changed to: ${selectedTopic}`);
+    displayAllSuggestion(selectedTopic);
         });
 
         // Refresh Chat and Reset Suggestions
@@ -568,10 +577,18 @@
 
         function checkAndShowPopup(topic) {
             const selectedTopic = topicsDropdown.value;
-            const suggestions = currentSuggestions[selectedTopic];
+            // Prevent pop-up when "Select a Topic" is chosen
+            if (selectedTopic === "topic1") {
+                console.log("Pop-up disabled: 'Select a Topic' was chosen.");
+                return; // Exit function early
+            }
         
-            if (!suggestions || suggestions.length === 0) {
-                console.log("All suggestions asked, showing pop-up...");
+            // Get the remaining suggestions for the selected topic
+            const remainingSuggestions = currentSuggestions[selectedTopic];
+        
+            // Only show pop-up if **no more suggestions remain** for a valid topic
+            if (!remainingSuggestions || remainingSuggestions.length === 0) {
+                console.log("All questions for this topic were asked. Showing pop-up...");
                 showPopup();
             }
         }
