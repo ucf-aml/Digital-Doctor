@@ -328,8 +328,8 @@
     <!-- Pop-up Message -->
     <div id="popup" class="popup">
         <div class="popup-content">
-            <p>You've asked all the suggested questions! Want to explore a new topic?</p>
-            <button id="popup-close">Close</button>
+            <p>You have completed the task. If you have not finished reading the chats, please chat this pop-up and finish. This will pop back up in 1 minute. Otherwise, please notify your researcher.</p>
+            <button id="popup-close">Close (If you need more time to read.)</button>
         </div>
     </div>
     
@@ -637,7 +637,7 @@
                             if (!remainingSuggestions || remainingSuggestions.length === 0) {
                                 checkAndShowPopup();
                             }
-                        }, 900); // Small delay for smooth transition
+                        }, 10000); // Small delay for smooth transition about 10 seconds
                     }
                 }
                 setTimeout(typeEffect, 30); // Start typing effect immediately
