@@ -436,9 +436,6 @@
             if (!suggestions || suggestions.length === 0) {
                 suggestionsDiv.innerHTML = ""; // Clear if no suggestions
                 console.log("No suggestions found for this topic.");
-
-                // ✅ Show pop-up when all suggestions are asked
-                // showPopup();
                 return;
             }
 
@@ -542,11 +539,6 @@
                 } else {
                     console.log("No intent detected in response.");
                 }
-
-                // ✅ Check if all suggestions are used after bot replies
-                //setTimeout(() => {
-                    //checkAndShowPopup(selectedTopic);
-                //}, 10);
                 
                 if (data.richText) {
                     addMessage(data.richText, "bot"); // ✅ Use rich text if available
@@ -597,8 +589,8 @@
         
                 if (index !== -1) {
                     console.log(`Found matching intent at index ${index}, removing suggestion:`, suggestions[index]);
-                    suggestions.splice(index, 1); // ✅ Remove the matching suggestion
-                    displayAllSuggestion(topic); // ✅ Refresh UI
+                    suggestions.splice(index, 1); // Remove the matching suggestion
+                    displayAllSuggestion(topic); // Refresh UI
                 } else {
                     console.log(`No matching intent found for: ${detectedIntent}`);
                 }
@@ -636,10 +628,16 @@
                         setTimeout(typeEffect, 20); // Adjust speed (lower is faster)
                         scrollToBottom(); // Ensure scrolling happens smoothly
                     } else {
-                        // ✅ Once typing finishes, check for pop-up condition
+                        // Wait for bot to finish typing, then check if all suggestions are used
                         setTimeout(() => {
-                            checkAndShowPopup();
-                        }, 900);
+                            const selectedTopic = topicsDropdown.value;
+                            const remainingSuggestions = currentSuggestions[selectedTopic];
+            
+                            // Only show pop-up if **no more suggestions remain**
+                            if (!remainingSuggestions || remainingSuggestions.length === 0) {
+                                checkAndShowPopup();
+                            }
+                        }, 900); // Small delay for smooth transition
                     }
                 }
                 setTimeout(typeEffect, 30); // Start typing effect immediately
@@ -673,9 +671,9 @@
             // ✅ Auto-show again after 2 minutes if user doesn't switch topics
             popupTimeout = setTimeout(() => {
                 if (popup.style.display === "none") {
-                    popup.style.display = "block"; // Show again after 2 mins
+                    popup.style.display = "block"; // Show again after 1 mins
                 }
-            }, 120000); // 2 minutes (120000ms)
+            }, 60000); // 1 minutes (60000ms)
         }
         
         // ✅ Close the pop-up when the close button is clicked
