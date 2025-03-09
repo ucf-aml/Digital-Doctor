@@ -43,6 +43,42 @@
             flex-direction: column;
         }
 
+        /* Pop-up Styling */
+        .popup {
+            display: none; /* Hidden initially */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            background: white;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            border-radius: 10px;
+            z-index: 2000;
+        }
+        
+        .popup-content {
+            font-size: 16px;
+            color: black;
+        }
+        
+        #popup-close {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        #popup-close:hover {
+            background: #0056b3;
+        }
+
+
         #menu {
             position: absolute;
             top: 50px;
@@ -289,6 +325,14 @@
     </style>
 </head>
 <body>
+    <!-- Pop-up Message -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>You've asked all the suggested questions! Want to explore a new topic?</p>
+            <button id="popup-close">Close</button>
+        </div>
+    </div>
+    
     <div id="header">
         <button id="menu-button">☰</button>
         <span id="chatbot-name">AI Doctor</span>
@@ -392,6 +436,9 @@
             if (!suggestions || suggestions.length === 0) {
                 suggestionsDiv.innerHTML = ""; // Clear if no suggestions
                 console.log("No suggestions found for this topic.");
+
+                // ✅ Show pop-up when all suggestions are asked
+                showPopup();
                 return;
             }
 
@@ -596,6 +643,25 @@
                 }
             }
         }
+
+        let popupTimeout; // Variable to store the timeout ID
+
+        function showPopup() {
+            const popup = document.getElementById("popup");
+            popup.style.display = "block"; // Show pop-up
+            
+            // ✅ Auto-show again after 2 minutes if user doesn't switch topics
+            popupTimeout = setTimeout(() => {
+                if (popup.style.display === "none") {
+                    popup.style.display = "block"; // Show again after 2 mins
+                }
+            }, 120000); // 2 minutes (120000ms)
+        }
+        
+        // ✅ Close the pop-up when the close button is clicked
+        document.getElementById("popup-close").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "none";
+        });
 
         // Function to auto-scroll the chat to the latest message
         function scrollToBottom() {
