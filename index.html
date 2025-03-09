@@ -438,7 +438,7 @@
                 console.log("No suggestions found for this topic.");
 
                 // ✅ Show pop-up when all suggestions are asked
-                showPopup();
+                // showPopup();
                 return;
             }
 
@@ -546,7 +546,7 @@
                 // ✅ Check if all suggestions are used after bot replies
                 setTimeout(() => {
                     checkAndShowPopup(selectedTopic);
-                }, 4000); // Small delay to ensure bot response is rendered
+                }, 10);
                 
                 if (data.richText) {
                     addMessage(data.richText, "bot"); // ✅ Use rich text if available
@@ -575,7 +575,8 @@
         }
 
         function checkAndShowPopup(topic) {
-            const suggestions = currentSuggestions[topic];
+            const selectedTopic = topicsDropdown.value;
+            const suggestions = currentSuggestions[selectedTopic];
         
             if (!suggestions || suggestions.length === 0) {
                 console.log("All suggestions asked, showing pop-up...");
@@ -634,6 +635,11 @@
                         index++;
                         setTimeout(typeEffect, 20); // Adjust speed (lower is faster)
                         scrollToBottom(); // Ensure scrolling happens smoothly
+                    } else {
+                        // ✅ Once typing finishes, check for pop-up condition
+                        setTimeout(() => {
+                            checkAndShowPopup();
+                        }, 900);
                     }
                 }
                 setTimeout(typeEffect, 30); // Start typing effect immediately
