@@ -542,6 +542,11 @@
                 } else {
                     console.log("No intent detected in response.");
                 }
+
+                // ✅ Check if all suggestions are used after bot replies
+                setTimeout(() => {
+                    checkAndShowPopup(selectedTopic);
+                }, 4000); // Small delay to ensure bot response is rendered
                 
                 if (data.richText) {
                     addMessage(data.richText, "bot"); // ✅ Use rich text if available
@@ -567,6 +572,15 @@
             userInput.value = ""; // Clear input field
             // displayRandomSuggestion(selectedTopic); // Display next random suggestion
             displayAllSuggestion(selectedTopic); // Display next suggestion in sequence
+        }
+
+        function checkAndShowPopup(topic) {
+            const suggestions = currentSuggestions[topic];
+        
+            if (!suggestions || suggestions.length === 0) {
+                console.log("All suggestions asked, showing pop-up...");
+                showPopup();
+            }
         }
 
         function removeSuggestionByIntent(topic, detectedIntent) {
