@@ -498,8 +498,8 @@
 
         // Send message logic
         document.getElementById("send-button").addEventListener("click", sendMessage);
-        document.getElementById("user-input").addEventListener("keypress", (e) => {
-            if (e.key === "Enter") sendMessage();
+        //document.getElementById("user-input").addEventListener("keypress", (e) => {
+            //if (e.key === "Enter") sendMessage();
         });
 
         // Replace with your actual Google Cloud Function URL
@@ -725,17 +725,17 @@
         });
 
         // Toggle Day/Night mode
-        const themeToggle = document.getElementById("theme-toggle");
-        themeToggle.addEventListener("change", () => {
-            document.body.classList.toggle("dark-mode");
-            localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
-        });
+        //const themeToggle = document.getElementById("theme-toggle");
+        //themeToggle.addEventListener("change", () => {
+            //document.body.classList.toggle("dark-mode");
+            //localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+        //});
 
         // Load saved theme preference
-        if (localStorage.getItem("theme") === "dark") {
-            document.body.classList.add("dark-mode");
-            themeToggle.checked = true;
-        }
+        //if (localStorage.getItem("theme") === "dark") {
+            //document.body.classList.add("dark-mode");
+            //themeToggle.checked = true;
+        //}
     </script>
 </body>
 </html>
