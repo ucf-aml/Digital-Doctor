@@ -19,15 +19,15 @@
         }
 
         .dark-mode {
-            --bg-color: #2C2F33;
-            --text-color: #E0E0E0;
-            --menu-bg: #3B3E42;
-            --menu-text: #E0E0E0;
-            --bot-bg: #3B3E42;
-            --user-bg: #4E8EF7;
-            --button-bg: #4E8EF7;
-            --button-text: #ffffff;
-            --button-hover: #3A6EC1;
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --menu-bg: #ffffff;
+            --menu-text: #000000;
+            --bot-bg: #e9ecef;
+            --user-bg: #007bff;
+            --button-bg: #ffffff;
+            --button-text: #000000;
+            --button-hover: #dddddd;
         }
 
         /* General Styles */
@@ -350,10 +350,10 @@
             <option value="topic5">Hypothyroidism</option>
         </select>
 
-        <label>
+        <!--<label>
             <input type="checkbox" id="theme-toggle">
             Toggle Day/Night Mode
-        </label>
+        </label>-->
 
         <button id="refresh">Refresh Chat</button>
     </div>
@@ -492,6 +492,7 @@
         document.getElementById("refresh").addEventListener("click", () => {
             resetSuggestions(); // Reset all suggestions
             suggestionsDiv.innerHTML = ""; // Clear suggestions
+            intentCounter = 0; // ✅ Reset intent counter to 0
             initializeChat(); // ✅ Restart chat with initial message
         });
 
@@ -504,6 +505,8 @@
         // Replace with your actual Google Cloud Function URL
         const CLOUD_FUNCTION_URL = "https://us-central1-casual-ypeq.cloudfunctions.net/dialogflowHandler";
 
+        let  intentCounter =0;
+        
         // Send message to Cloud Function and display response
         async function sendMessage() {
             const message = document.getElementById("user-input").value.trim();
@@ -545,6 +548,7 @@
                 if (detectedIntent) {
                     console.log(`Detected Intent: ${detectedIntent}`);
                     removeSuggestionByIntent(selectedTopic, detectedIntent);
+                    intentCounter++;
                 } else {
                     console.log("No intent detected in response.");
                 }
@@ -587,7 +591,7 @@
             const remainingSuggestions = currentSuggestions[selectedTopic];
         
             // Only show pop-up if **no more suggestions remain** for a valid topic
-            if (!remainingSuggestions || remainingSuggestions.length === 0) {
+            if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5) {
                 console.log("All questions for this topic were asked. Showing pop-up...");
                 showPopup();
             }
