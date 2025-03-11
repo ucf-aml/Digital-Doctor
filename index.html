@@ -550,6 +550,9 @@
                     console.log(`Detected Intent: ${detectedIntent}`);
                     removeSuggestionByIntent(selectedTopic, detectedIntent);
                     intentCounter++;
+
+                    // ✅ Check if the pop-up should be shown immediately
+                    checkAndShowPopup();
                 } else {
                     console.log("No intent detected in response.");
                 }
@@ -654,15 +657,15 @@
                         scrollToBottom(); // Ensure scrolling happens smoothly
                     } else {
                         // Wait for bot to finish typing, then check if all suggestions are used
-                        setTimeout(() => {
+                        //setTimeout(() => {
                             const selectedTopic = topicsDropdown.value;
                             const remainingSuggestions = currentSuggestions[selectedTopic];
             
                             // Only show pop-up if **no more suggestions remain**
-                            if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated) {
-                                checkAndShowPopup();
-                            }
-                        }, 20000); // Small delay for smooth transition about 20 seconds
+                            //if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated) {
+                                //checkAndShowPopup();
+                            //}
+                        //}, 10); // Small delay for smooth transition about 20 seconds
                     }
                 }
                 setTimeout(typeEffect, 30); // Start typing effect immediately
