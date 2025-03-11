@@ -412,6 +412,7 @@
         const topicsDropdown = document.getElementById("topics");
         const suggestionsDiv = document.getElementById("suggestions");
         const userInput = document.getElementById("user-input");
+        const detectedIntents = new Set();
 
         function initializeChat() {
             document.getElementById("messages").innerHTML = ""; // Clear chat
@@ -546,7 +547,6 @@
 
                 // ✅ Fix: Ensure intent is properly extracted
                 const detectedIntent = data.intent || (data.queryResult && data.queryResult.intent && data.queryResult.intent.displayName);
-
                 // ✅ Remove suggestion based on recognized intent
                 if (detectedIntent && !detectedIntents.has(detectedIntent)) {
                     detectedIntents.add(detectedIntent);
