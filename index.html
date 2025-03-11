@@ -655,7 +655,7 @@
                             const remainingSuggestions = currentSuggestions[selectedTopic];
             
                             // Only show pop-up if **no more suggestions remain**
-                            if (!remainingSuggestions || remainingSuggestions.length === 0) {
+                            if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5) {
                                 checkAndShowPopup();
                             }
                         }, 40000); // Small delay for smooth transition about 40 seconds
