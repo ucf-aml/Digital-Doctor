@@ -547,7 +547,8 @@
                 const detectedIntent = data.intent || (data.queryResult && data.queryResult.intent && data.queryResult.intent.displayName);
 
                 // ✅ Remove suggestion based on recognized intent
-                if (detectedIntent) {
+                if (detectedIntent && !detectedIntents.has(detectedIntent)) {
+                    detectedIntents.add(detectedIntent);
                     console.log(`Detected Intent: ${detectedIntent}`);
                     removeSuggestionByIntent(selectedTopic, detectedIntent);
                     intentCounter++;
