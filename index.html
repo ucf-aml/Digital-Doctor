@@ -255,23 +255,23 @@
         }
 
         /* Send button (smaller and next to input) */
-        #send-button {
-            width: 50px; /* Smaller button */
+        /*#send-button {
+            width: 50px;
             height: 50px;
             background: var(--button-bg);
             border: none;
-            border-radius: 50%; /* Makes it round */
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-        }
+        }*/
 
         /* Paper airplane icon */
-        #send-button img {
-            width: 23px; /* Icon size */
+        /*#send-button img {
+            width: 23px;
             height: 23px;
-        }
+        }*/
 
         #suggestions {
             display: flex;
@@ -497,10 +497,10 @@
         });
 
         // Send message logic
-        document.getElementById("send-button").addEventListener("click", sendMessage);
-        //document.getElementById("user-input").addEventListener("keypress", (e) => {
-            //if (e.key === "Enter") sendMessage();
-        //});
+        //document.getElementById("send-button").addEventListener("click", sendMessage);
+        document.getElementById("user-input").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
 
         // Replace with your actual Google Cloud Function URL
         const CLOUD_FUNCTION_URL = "https://us-central1-casual-ypeq.cloudfunctions.net/dialogflowHandler";
