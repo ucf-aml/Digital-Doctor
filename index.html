@@ -610,7 +610,9 @@
             if (intentCounter >= 5 && typingDone && !popupActivated) {
                 console.log("All questions for this topic were asked. Showing pop-up...");
                 popupActivated = true;
-                showPopup();
+                setTimeout(() => {
+                    showPopup();
+                }, 5000);
             }
         }
 
@@ -667,7 +669,7 @@
                         scrollToBottom(); // Ensure scrolling happens smoothly
                     } else {
                         // Wait for bot to finish typing, then check if all suggestions are used
-                        setTimeout(() => {
+                        //setTimeout(() => {
                             //const selectedTopic = topicsDropdown.value;
                             //const remainingSuggestions = currentSuggestions[selectedTopic];
             
@@ -678,10 +680,12 @@
                             // ✅ After typing finishes, check if all intents have been triggered
                             if (intentCounter >= 5 && !popupActivated) {
                                 typingDone = true;
-                                checkAndShowPopup();
+                                setTimeout(() => {
+                                    checkAndShowPopup();
+                                }, 10000); // delay 10 seconds
                             }
                             
-                        }, 40000); // Small delay for smooth transition about 500 miliseconds
+                        //}, 40000); // Small delay for smooth transition about 500 miliseconds
                         
                     }
                 }
