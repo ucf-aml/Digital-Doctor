@@ -494,6 +494,7 @@
             suggestionsDiv.innerHTML = ""; // Clear suggestions
             intentCounter = 0; // ✅ Reset intent counter to 0
             popupActivated = false;
+            typingDone = false;
             initializeChat(); // ✅ Restart chat with initial message
         });
 
@@ -584,6 +585,7 @@
         }
 
         let popupActivated = false;
+        let typingDone = false;
         
         function checkAndShowPopup(topic) {
             const selectedTopic = topicsDropdown.value;
@@ -594,10 +596,16 @@
             }
         
             // Get the remaining suggestions for the selected topic
-            const remainingSuggestions = currentSuggestions[selectedTopic];
+            //const remainingSuggestions = currentSuggestions[selectedTopic];
         
             // Only show pop-up if **no more suggestions remain** for a valid topic
-            if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated) {
+            //if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated && !typingDone) {
+                //console.log("All questions for this topic were asked. Showing pop-up...");
+                //popupActivated = true;
+                //showPopup();
+            //}
+
+            if (intentCounter >= 5 && typingDone && !popupActivated) {
                 console.log("All questions for this topic were asked. Showing pop-up...");
                 popupActivated = true;
                 showPopup();
@@ -658,14 +666,20 @@
                     } else {
                         // Wait for bot to finish typing, then check if all suggestions are used
                         //setTimeout(() => {
-                            const selectedTopic = topicsDropdown.value;
-                            const remainingSuggestions = currentSuggestions[selectedTopic];
+                            //const selectedTopic = topicsDropdown.value;
+                            //const remainingSuggestions = currentSuggestions[selectedTopic];
             
                             // Only show pop-up if **no more suggestions remain**
                             //if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated) {
-                                //checkAndShowPopup();
+                                //typingDone = true;
                             //}
-                        //}, 10); // Small delay for smooth transition about 20 seconds
+                        //}, 500); // Small delay for smooth transition about 500 miliseconds
+
+                        // ✅ After typing finishes, check if all intents have been triggered
+                        if (intentCounter >= 5 && !popupActivated) {
+                            typingDone = true;
+                            checkAndShowPopup();
+                        }
                     }
                 }
                 setTimeout(typeEffect, 30); // Start typing effect immediately
