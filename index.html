@@ -495,6 +495,7 @@
             intentCounter = 0; // ✅ Reset intent counter to 0
             popupActivated = false;
             typingDone = false;
+            detectedIntents.clear();
             initializeChat(); // ✅ Restart chat with initial message
         });
 
@@ -666,7 +667,7 @@
                         scrollToBottom(); // Ensure scrolling happens smoothly
                     } else {
                         // Wait for bot to finish typing, then check if all suggestions are used
-                        //setTimeout(() => {
+                        setTimeout(() => {
                             //const selectedTopic = topicsDropdown.value;
                             //const remainingSuggestions = currentSuggestions[selectedTopic];
             
@@ -674,13 +675,14 @@
                             //if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated) {
                                 //typingDone = true;
                             //}
-                        //}, 500); // Small delay for smooth transition about 500 miliseconds
-
-                        // ✅ After typing finishes, check if all intents have been triggered
-                        if (intentCounter >= 5 && !popupActivated) {
-                            typingDone = true;
-                            checkAndShowPopup();
-                        }
+                            // ✅ After typing finishes, check if all intents have been triggered
+                            if (intentCounter >= 5 && !popupActivated) {
+                                typingDone = true;
+                                checkAndShowPopup();
+                            }
+                            
+                        }, 40000); // Small delay for smooth transition about 500 miliseconds
+                        
                     }
                 }
                 setTimeout(typeEffect, 30); // Start typing effect immediately
