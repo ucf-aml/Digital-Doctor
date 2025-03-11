@@ -493,6 +493,7 @@
             resetSuggestions(); // Reset all suggestions
             suggestionsDiv.innerHTML = ""; // Clear suggestions
             intentCounter = 0; // ✅ Reset intent counter to 0
+            popupActivated = false;
             initializeChat(); // ✅ Restart chat with initial message
         });
 
@@ -579,6 +580,8 @@
             displayAllSuggestion(selectedTopic); // Display next suggestion in sequence
         }
 
+        let popupActivated = false;
+        
         function checkAndShowPopup(topic) {
             const selectedTopic = topicsDropdown.value;
             // Prevent pop-up when "Select a Topic" is chosen
@@ -593,6 +596,7 @@
             // Only show pop-up if **no more suggestions remain** for a valid topic
             if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated) {
                 console.log("All questions for this topic were asked. Showing pop-up...");
+                popupActivated = true;
                 showPopup();
             }
         }
