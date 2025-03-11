@@ -591,7 +591,7 @@
             const remainingSuggestions = currentSuggestions[selectedTopic];
         
             // Only show pop-up if **no more suggestions remain** for a valid topic
-            if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5) {
+            if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated) {
                 console.log("All questions for this topic were asked. Showing pop-up...");
                 showPopup();
             }
@@ -655,7 +655,7 @@
                             const remainingSuggestions = currentSuggestions[selectedTopic];
             
                             // Only show pop-up if **no more suggestions remain**
-                            if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5) {
+                            if ((!remainingSuggestions || remainingSuggestions.length === 0) && intentCounter >= 5  && !popupActivated) {
                                 checkAndShowPopup();
                             }
                         }, 40000); // Small delay for smooth transition about 40 seconds
